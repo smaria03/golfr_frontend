@@ -4,6 +4,7 @@ import useScorePost from '../lib/useScorePost'
 
 const TODAY = new Date().toISOString().slice(0, 10)
 
+// eslint-disable-next-line max-lines-per-function
 const ScorePostWidget = () => {
   const [ open, setOpen ] = useState(false)
   const onClick = useCallback(
@@ -13,16 +14,17 @@ const ScorePostWidget = () => {
 
   const [ totalScore, setTotalScore ] = useState(80)
   const [ playedAt, setPlayedAt ] = useState(TODAY)
+  const [ numberOfHoles, setNumberOfHoles ] = useState(9)
 
   const { postScore } = useScorePost()
 
   const onSubmit = useCallback(
     e => {
       e.preventDefault()
-      postScore(totalScore, playedAt)
+      postScore(totalScore, playedAt, numberOfHoles)
       setOpen(false)
     },
-    [ totalScore, playedAt, postScore ]
+    [ totalScore, playedAt, numberOfHoles, postScore ]
   )
 
   return (
@@ -58,6 +60,18 @@ const ScorePostWidget = () => {
                 max={TODAY}
                 className="form-input h-8 ml-3 my-2"
               />
+            </div>
+            <div>
+              Number of Holes
+              <select
+                name="number_of_holes"
+                value={numberOfHoles}
+                onChange={e => setNumberOfHoles(Number(e.target.value))}
+                className="form-input h-9 ml-3 my-2"
+              >
+                <option value={9}>9 Holes</option>
+                <option value={18}>18 Holes</option>
+              </select>
             </div>
             <button className="w-40 p-1 my-2 bg-gray-200 rounded-lg">
               Post
