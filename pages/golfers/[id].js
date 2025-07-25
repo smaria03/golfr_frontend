@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router'
 import useGolferInfo from '../../lib/useGolferInfo'
 import useGolferScores from '../../lib/useGolferScores'
-import GolfScoreCard from '../../components/GolfScoreCard'
 import Layout from '../../components/Layout'
+import ScoreCard from '../../components/ScoreCard'
 
 export default function GolferProfile() {
   const { id } = useRouter().query
@@ -34,7 +34,14 @@ export default function GolferProfile() {
         <div className="space-y-4">
           {Array.isArray(scores) && scores.length > 0 ? (
             scores.map(score => (
-              <GolfScoreCard key={score.id} score={score} />
+              <ScoreCard
+                key={score.id}
+                id={score.id}
+                playedAt={score.played_at}
+                totalScore={score.total_score}
+                userId={score.user_id}
+                userName={null}
+              />
             ))
           ) : (
             <p className="text-gray-500">This player has no scores yet.</p>
