@@ -14,7 +14,9 @@ const ScoreCard = ({ id, playedAt, totalScore, userId, userName, numberOfHoles }
           {playedAt}
         </div>
         <div>
-          {`${userName} posted a score of ${totalScore} on a ${numberOfHoles}-hole course`}
+          {userName
+            ? `${userName} posted a score of ${totalScore} on a ${numberOfHoles}-hole course`
+            : `Score: ${totalScore}`}
         </div>
       </div>
       <div className="w-1/6">
